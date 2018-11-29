@@ -1,0 +1,59 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  {% load staticfiles %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  <link REL="SHORTCUT ICON" HREF="{% static "images/favicon.ico" %}"/>
+  {% block head %}{% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">{% block nav_title %}{% endblock %}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample05">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/mlearning">Machine Learning</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/word">Word</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/algorithm">Algorithm</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/pass">祝我考試順利</a>
+        </li>
+      </ul>
+
+      {% if request.user.is_authenticated %}
+      <button class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href = '/accounts/logout';">Logout</button>
+      {% else %}
+      <button class="btn btn-outline-warning my-2 my-sm-0" onclick="location.href = '/accounts/login';">Login</button>
+      {% endif %}
+    </div>
+</nav>
+{% csrf_token %}
+{% if request.user.is_authenticated %}
+  <h1>Hello, {{request.user}}</h1>
+{% endif %}
+{% block content %}{% endblock %}
+<hr>
+<h4>$$Thanks\ for\ Bootstrap$$</h4>
+<h4>$$Thanks\ for\ MathJAX$$</h4>
+<h4>$$Thanks\ for\ Plotly.js$$</h4>
+<h4>$$Thanks\ for\ Google\ Chart$$</h4>
+
+
+</body>
+</html>

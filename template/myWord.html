@@ -1,0 +1,29 @@
+{%extends 'all_nav.html'%}
+{% block nav_title%}{{request.user}}'s Word{% endblock %}
+
+{% block content%}
+<form action="/add-word/" method="post" >
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="phrase">Phrase:</label>
+    <input type="text" id = 'phrase' name="q" placeholder="Enter Phrase">
+    <button type="submit" class="btn btn-outline-info my-2 my-sm-0">Save</button>
+  </div>
+</form>
+<div class="container">
+  <table border="6" class="table">
+    <thead>
+      <tr>
+        <th>Phrase</th>
+        <th>Add Time</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in items %}
+        <tr><td>{{ item.word }}</td><td> {{item.time}}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

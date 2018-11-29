@@ -1,0 +1,363 @@
+
+  {% extends 'all_nav.html' %}
+  {% block head %}
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      "HTML-CSS": { linebreaks: { automatic: true } },
+             SVG: { linebreaks: { automatic: true } }
+    });
+  </script>
+  {% load staticfiles %}
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script type="module" src="{% static 'js/mlearning.js' %}"></script>
+  <script type="module">
+    import {drawChart} from "{% static 'js/mlearning.js' %}"
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+  </script>
+  {% endblock %}
+
+
+
+{% block nav_title %}DJ's Machine Learning{% endblock %}
+
+{% block content %}
+  <nav>
+    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-loss-tab" data-toggle="tab" href="#loss" role="tab" aria-controls="nav-loss" aria-selected="true">\(Loss\)</a>
+      <a class="nav-item nav-link" id="nav-optimization-tab" data-toggle="tab" href="#optimization" role="tab" aria-controls="nav-optimization" aria-selected="false">\(Optimization\)</a>
+      <a class="nav-item nav-link" id="nav-generalization-tab" data-toggle="tab" href="#generalization" role="tab" aria-controls="nav-generalization" aria-selected="false">\(Generalization\)</a>
+      <a class="nav-item nav-link" id="nav-regularization-tab" data-toggle="tab" href="#regularization" role="tab" aria-controls="nav-regularization" aria-selected="false">\(Regularization\)</a>
+      <a class="nav-item nav-link" id="nav-validation-tab" data-toggle="tab" href="#validation" role="tab" aria-controls="nav-validation" aria-selected="false">\(Validation\)</a>
+    </div>
+  </nav>
+
+
+  <div class="tab-content">
+    <div id="loss" class="tab-pane fade show active">
+      <div class="accordion" id="mAccordion1">
+        <div class="card">
+          <div class="card-header" id="loss0">
+            <h4 class="mb-0">
+              <a data-toggle="collapse" data-toggle="collapse" data-target="#loss_collapse0" aria-expanded="true" aria-controls="loss_collapse0">
+              Loss/Error</a>
+            </h4>
+          </div>
+          <div id="loss_collapse0" class="collapse show" aria-labelledby="loss0" data-parent="#mAccordion1">
+            <div class="card-body">
+
+              <div style="width: 100%;">
+                <p>$$E_{in}:模型預測訓練資料的Error$$</p>
+                <p>$$E_{out}:模型預測真實資料的Error$$</p>
+                <p>要做一個預測模型，需要透過訓練資料不斷地去調整模型，\(E_{in}\)指的就是這個模型對這些訓練資料的預測結果</p>
+                <p>資料不可能永遠都是在訓練資料裡，那這些不在訓練資料裡的就叫做真實資料，\(E_{out}\)指的就是這個模型對這些真實資料的預測結果</p>
+                <p>這個概念很像假設自己是一個模型，大家期中考瘋狂做考古題，結果老師真的都考考古題，自己被扣的分數就類似\(E_{in}\)</p>
+                <p>當然，老師怎麼可能都出考古題，一定會出一些以前沒出現過的題目，這就是所謂的真實資料</p>
+                <p>如果整張考卷都是以前沒出現過的題目，那麼自己被扣的分數就類似\(E_{out}\)的概念</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="loss1">
+            <h4 class="mb-0">
+              <a data-toggle="collapse" data-toggle="collapse" data-target="#loss_collapse1" aria-expanded="false" aria-controls="loss_collapse1">
+              Zero-One Error Function</a>
+            </h4>
+          </div>
+          <div id="loss_collapse1" class="collapse" aria-labelledby="loss1" data-parent="#mAccordion1">
+            <div class="card-body">
+
+              <p>$$0/1_{error} = [sign(wx+b) \ne y].$$</p>
+
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="loss2">
+            <h4 class="mb-0">
+              <a data-toggle="collapse" data-toggle="collapse" data-target="#loss_collapse2" aria-expanded="false" aria-controls="loss_collapse2">
+              Square Error Function</a>
+            </h4>
+          </div>
+          <div id="loss_collapse2" class="collapse" aria-labelledby="loss2" data-parent="#mAccordion1">
+            <div class="card-body">
+
+              <p>$$Square_{error} = (prediction-y)^2.$$</p>
+
+            </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="loss3">
+          <h4 class="mb-0">
+            <a data-toggle="collapse" data-toggle="collapse" data-target="#loss_collapse3" aria-expanded="false" aria-controls="loss_collapse3">
+            Classification Error Function</a>
+          </h4>
+        </div>
+        <div id="loss_collapse3" class="collapse" aria-labelledby="loss3" data-parent="#mAccordion1">
+          <div class="card-body">
+
+            <p>$$Classification_{error} = -({y* \ln prediction} + {(1-y)* \ln (1-prediction)}).$$</p>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+    <div id="optimization" class="tab-pane fade">
+
+        <div class="accordion" id="mAccordion">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h4 class="mb-0">
+                <a data-toggle="collapse" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                Zero-One Error Optmization</a>
+              </h4>
+            </div>
+            <div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#mAccordion">
+              <div class="card-body">
+                <p>$$prediction = sign(wx+b).$$</p>
+                <p>$$0/1_{error} = [sign(wx+b) \ne y].$$</p>
+                <p>$$w_{new} = w_{old} + y_nx_n.$$</p>
+                <label for="number">Number of Input Data</label>
+                <input type="text" class="form-control" id="number" placeholder="Enter 15~100">
+                <button type="button" name="number_button" class="btn btn-outline-warning my-2 my-sm-0" id="number_button">Generate</button>
+                <div>
+                  <button id = "train" class="btn btn-outline-info my-2 my-sm-0">Train</button>
+                </div>
+
+                <div id="p_graph" style="width: 900px; height: 500px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h4 class="mb-0">
+                <a data-toggle="collapse" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                Square Error Optmization</a>
+              </h4>
+            </div>
+            <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#mAccordion">
+              <div class="card-body">
+                <p>$$prediction = wx+b.$$</p>
+                <p>$$Square_{error} = (prediction-y)^2.$$</p>
+                <p>$$w_{new} = w_{old} + \alpha * {1 \over n} \sum_{i=1}^n {({prediction}_i-y_i)*x_i}.$$</p>
+
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>learning rate</td>
+                      <td><input type = "range" class="controls" id="slider" min="0.01" max="1" step="0.01" oninput="showVal(this.value)" onchange="showVal(this.value)"></td>
+                      <td><div class="controls statusValue"><span id="eta">0.01</span></div></td>
+                    </tr>
+                    <tr>
+                      <td>next step</td>
+                      <td><button class="btn btn-outline-info my-2 my-sm-0" onclick="step(1);">next</button></td>
+                      <td><div class="controls statusValue"><span id="iter">0</span></div></td>
+                    </tr>
+                    <tr>
+                      <td>reset</td>
+                      <td><button class="btn btn-outline-info my-2 my-sm-0" onclick="reset(1);">Reset</button></td>
+                      <td><div class="controls statusValue"><span id="num">0</span></div></td>
+                    </tr>
+                  </tbody>
+
+                </table>
+                <div id="piechart" style="width: 900px; height: 500px;"></div>
+
+              </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h4 class="mb-0">
+              <a data-toggle="collapse" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+              Binary Classfication Error Optmization</a>
+            </h4>
+          </div>
+          <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#mAccordion">
+            <div class="card-body">
+              <p>$$prediction = Sigmoid(wx+b).$$</p>
+              <p>$$Sigmoid(z) = {1 \over {1+e^{-z}}}.$$</p>
+              <p>$$Classfication_{error} = -({y* \ln prediction} + {(1-y)* \ln (1-prediction)}).$$</p>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>learning rate</td>
+                    <td><input type = "range" class="controls" id="slider" min="0.01" max="1" step="0.01" oninput="showVal1(this.value)" onchange="showVal1(this.value)"></td>
+                    <td><div class="controls statusValue"><span id="eta1">0.01</span></div></td>
+                  </tr>
+                  <tr>
+                    <td>next step</td>
+                    <td><button class="btn btn-outline-info my-2 my-sm-0" onclick="step(0);">next</button></td>
+                    <td><div class="controls statusValue"><span id="iter1">0</span></div></td>
+                  </tr>
+                  <tr>
+                    <td>reset</td>
+                    <td><button class="btn btn-outline-info my-2 my-sm-0" onclick="reset(0);">Reset</button></td>
+                    <td><div class="controls statusValue"><span id="num1">0</span></div></td>
+                  </tr>
+                </tbody>
+
+              </table>
+              <div id="log" style="width: 900px; height: 500px;"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div id="generalization" class="tab-pane fade">
+      <div class="accordion" id="mAccordion2">
+        <div class="card">
+          <div class="card-header" id="g1">
+            <h4 class="mb-0">
+              <a data-toggle="collapse" data-toggle="collapse" data-target="#g_collapse1" aria-expanded="true" aria-controls="g_collapse1">
+              Generalization</a>
+            </h4>
+          </div>
+          <div id="g_collapse1" class="collapse show" aria-labelledby="g1" data-parent="#mAccordion2">
+            <div class="card-body">
+              <div id='intro_gen'>
+                <p>Generalization 指的是一個模型的預測能力，假設已經訓練好一個線性模型，現在有一筆資料丟進去這個模型去做預測，如下圖</p>
+                <table style='align: middle; width:80%;' >
+                  <tbody>
+                    <tr>
+                      <td style='vertical-align: middle; font-size: large;'>$$X_1$$</td>
+                      <td>$$2$$</td>
+                      <td>$$4$$</td>
+                      <td>$$5$$</td>
+                      <td>$$7$$</td>
+                      <td>$$10$$</td>
+                    </tr>
+                    <tr>
+                      <td style='vertical-align: middle; font-size: large;'>$$X_2$$</td>
+                      <td>$$3$$</td>
+                      <td>$$2$$</td>
+                      <td>$$6$$</td>
+                      <td>$$4$$</td>
+                      <td>$$10$$</td>
+                    </tr>
+                    <tr>
+                      <td style='vertical-align: middle; font-size: large;'>$$Label$$</td>
+                      <td style="color: red">$$X$$</td>
+                      <td style="color: red">$$X$$</td>
+                      <td style="color: blue">$$O$$</td>
+                      <td style="color: red">$$X$$</td>
+                      <td style="color: blue">$$O$$</td>
+                    </tr>
+                    <tr>
+                      <td style='vertical-align: middle; font-size: large;'>$$Prediction$$</td>
+                      <td style="color: blue">$$O$$</td>
+                      <td style="color: red">$$X$$</td>
+                      <td style="color: blue">$$O$$</td>
+                      <td style="color: red">$$X$$</td>
+                      <td style="color: blue">$$O$$</td>
+                    </tr>
+                    <tr>
+                      <td style=' font-size: large;'>$$Correct$$</td>
+                      <td >$$F$$</td>
+                      <td >$$T$$</td>
+                      <td >$$T$$</td>
+                      <td >$$T$$</td>
+                      <td >$$T$$</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm">
+                      <div id="gen_graph" style="width: 50%; height: 500px;"></div>
+                    </div>
+                    <div class="col-sm">
+
+                      <p>$$這是一個對這筆資料有80\%準確率的模型。$$</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+        <div class="card">
+          <div class="card-header" id="g2">
+            <h4 class="mb-0">
+              <a data-toggle="collapse" data-toggle="collapse" data-target="#g_collapse2" aria-expanded="false" aria-controls="g_collapse2">
+              Feature Transformation</a>
+            </h4>
+          </div>
+          <div id="g_collapse2" class="collapse" aria-labelledby="g2" data-parent="#mAccordion2">
+            <div class="card-body">
+              <p>觀察前面幾筆資料可以發現，它們都是可以被線性分割的，當然，不是每一筆資料都能夠被線性模型分割，如下圖所示</p>
+              <label for="circle_number">Number of Input Data</label>
+              <input type="text" class="form-control" id="circle_number" placeholder="Enter 15~100">
+              <button type="button" name="circle_number_button" class="btn btn-outline-warning my-2 my-sm-0" id="circle_number_button">Generate</button>
+              <div id="feature_graph" style="width: 900px; height: 500px;"></div>
+              <p>那應該怎麼辦呢？</p>
+              <p>只要把在非線性可分空間裡的資料轉到可以線性可分的空間就行！只需要將資料的各個特徵的維度兩兩相乘即可轉移，例如：原本資料是輸入\([1,X_1,X_2]\)，透過轉換可以得到\([1,X_1,X_2,X_1X_2,X_1^2,X_2^2]\)的空間。</p>
+              <button type="button" class="btn btn-outline-warning my-2 my-sm-0" id="show_circle">Start</button>
+              <div id="div_circle" style="display:none">
+                <p>因本例已知可以用一個通過圓心的圓分割資料，故將維度降為：$$[1,X_1^2,X_2^2]$$</p>
+                <p>一般未知的情況下還是需要照原本轉換後的維度訓練</p>
+                <button type="button" class="btn btn-outline-warning my-2 my-sm-0" id="circle_train">Train</button>
+                <div id="after_feature_graph" style="width: 900px; height: 500px;"></div>
+                <button type="button" class="btn btn-outline-warning my-2 my-sm-0" id="circle_after_train">Finish</button>
+                <div id="div_train_finish" style="display:none">
+                  <div id="feature_finish_graph" style="width: 900px; height: 500px;"></div>
+                </div>
+              </div>
+
+
+
+            </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="g3">
+          <h4 class="mb-0">
+            <a data-toggle="collapse" data-toggle="collapse" data-target="#g_collapse3" aria-expanded="false" aria-controls="g_collapse3">
+            Overfitting</a>
+          </h4>
+        </div>
+        <div id="g_collapse3" class="collapse" aria-labelledby="g3" data-parent="#mAccordion2">
+          <div class="card-body">
+            <p>資料是人給的，人總是會有出錯的時候，就會不小心在一大坨資料中出現了幾個小錯誤，這些錯誤的資料稱為\(noise\)</p>
+            <p>所以在訓練模型的時候，如果你的資料裡有\(noise\)，而你又把這個模型訓練的可以100%預測你的訓練資料（也就是\(E_{in}=0\)），但你發現這模型對於預測真實資料（也就是\(E_{out}\)）不如預期。</p>
+            <p>這種現象就稱為\(overfitting\)，通常這種模型會很複雜，如下圖：</p>
+            {% load staticfiles %}
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  <img width="100%" src="{% static 'images/overfitting1.png' %}" alt=""></img>
+                </div>
+                <div class="col-sm">
+                  <img width="50%" src="{% static 'images/overfitting2.png' %}" alt=""></img>
+                </div>
+              </div>
+              <h5>$$取圖自 Coursera-機器學習基石下 (Machine Learning Foundations)$$</h5>
+            </div>
+
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    <div id="regularization" class="tab-pane fade">
+      <h1>懶了</h1>
+    </div>
+    <div id="validation" class="tab-pane fade">
+      <h1>沒力了</h1>
+    </div>
+  </div>
+{% endblock %}

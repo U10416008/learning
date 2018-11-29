@@ -1,0 +1,80 @@
+{% extends 'all_nav.html' %}
+{% block nav_title%}DJ's Algorithm{% endblock %}
+{% block head %}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/drag.css' %}" >
+{% endblock %}
+{%block content %}
+
+
+<div class="accordion" id="accordionAlg">
+  <div class="card">
+    <div class="card-header" id="headingOne_Alg">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-target="#collapseOne_Alg" aria-expanded="true" aria-controls="collapseOne_Alg">
+          0/1 KnapSack
+        </a>
+      </h5>
+    </div>
+
+    <div id="collapseOne_Alg" class="collapse show" aria-labelledby="headingOne_Alg" data-parent="#accordionAlg">
+      <div class="card-body">
+        <div id="check_container"></div>
+        <input type="text" class="form-control" id="limit_weight" placeholder="Max weights">
+        <button type="button" name="number_button" class="btn btn-outline-warning my-2 my-sm-0" id="sendWeight">Start</button>
+
+        <div class="drag-drop-basic">
+          <div class="grid-container" id="source-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+          </div>
+          <div class="grid-container" id="target-container" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        </div>
+        <p id="overWeight"></p>
+        <div class="show">
+          <div class="weight">
+          <p>Weight:</p>
+          <p id="current_weight">0</p>
+          </div>
+          <div class="weight">
+          <p>Value:</p>
+          <p id="current_value">0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo_Alg">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-target="#collapseTwo_Alg" aria-expanded="true" aria-controls="collapseTwo_Alg">
+
+        </a>
+      </h5>
+    </div>
+    <div id="collapseTwo_Alg" class="collapse" aria-labelledby="headingTwo_Alg" data-parent="#accordionAlg">
+      <div class="card-body">
+
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree_Alg">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-target="#collapseThree_Alg" aria-expanded="true" aria-controls="collapseThree_Alg">
+
+        </a>
+      </h5>
+    </div>
+    <div id="collapseThree_Alg" class="collapse" aria-labelledby="headingThree_Alg" data-parent="#accordionAlg">
+      <div class="card-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% load staticfiles %}
+<script src="{% static 'js/algorithm.js' %}"></script>
+
+
+{% endblock %}
