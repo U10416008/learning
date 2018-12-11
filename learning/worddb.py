@@ -71,6 +71,6 @@ def worddb_delete(request):
     # Word.objects.filter(id=1).delete()
 
     # delete all data
-    # Word.objects.all().delete()
+    # Words.objects.all().delete()
 
     return HttpResponse("<p>delete success</p>")

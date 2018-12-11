@@ -3,12 +3,6 @@
   {% block head %}
 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      "HTML-CSS": { linebreaks: { automatic: true } },
-             SVG: { linebreaks: { automatic: true } }
-    });
-  </script>
   {% load staticfiles %}
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script type="module" src="{% static 'js/mlearning.js' %}"></script>
@@ -153,17 +147,17 @@
                   <tbody>
                     <tr>
                       <td>learning rate</td>
-                      <td><input type = "range" class="controls" id="slider" min="0.01" max="1" step="0.01" oninput="showVal(this.value)" onchange="showVal(this.value)"></td>
+                      <td><input type = "range" class="controls" id="slider" min="0.01" max="1" step="0.01"></td>
                       <td><div class="controls statusValue"><span id="eta">0.01</span></div></td>
                     </tr>
                     <tr>
                       <td>next step</td>
-                      <td><button class="btn btn-outline-info my-2 my-sm-0" onclick="step(1);">next</button></td>
+                      <td><button class="btn btn-outline-info my-2 my-sm-0 step" data-link="1">next</button></td>
                       <td><div class="controls statusValue"><span id="iter">0</span></div></td>
                     </tr>
                     <tr>
                       <td>reset</td>
-                      <td><button class="btn btn-outline-info my-2 my-sm-0" onclick="reset(1);">Reset</button></td>
+                      <td><button class="btn btn-outline-info my-2 my-sm-0 reset" data-link="1">Reset</button></td>
                       <td><div class="controls statusValue"><span id="num">0</span></div></td>
                     </tr>
                   </tbody>
@@ -190,17 +184,17 @@
                 <tbody>
                   <tr>
                     <td>learning rate</td>
-                    <td><input type = "range" class="controls" id="slider" min="0.01" max="1" step="0.01" oninput="showVal1(this.value)" onchange="showVal1(this.value)"></td>
+                    <td><input type = "range" class="controls" id="slider1" min="0.01" max="1" step="0.01"></td>
                     <td><div class="controls statusValue"><span id="eta1">0.01</span></div></td>
                   </tr>
                   <tr>
                     <td>next step</td>
-                    <td><button class="btn btn-outline-info my-2 my-sm-0" onclick="step(0);">next</button></td>
+                    <td><button class="btn btn-outline-info my-2 my-sm-0 step" data-link="0">next</button></td>
                     <td><div class="controls statusValue"><span id="iter1">0</span></div></td>
                   </tr>
                   <tr>
                     <td>reset</td>
-                    <td><button class="btn btn-outline-info my-2 my-sm-0" onclick="reset(0);">Reset</button></td>
+                    <td><button class="btn btn-outline-info my-2 my-sm-0 reset" data-link="0">Reset</button></td>
                     <td><div class="controls statusValue"><span id="num1">0</span></div></td>
                   </tr>
                 </tbody>
@@ -345,7 +339,7 @@
                   <img width="50%" src="{% static 'images/overfitting2.png' %}" alt=""></img>
                 </div>
               </div>
-              <h5>$$取圖自 Coursera-機器學習基石下 (Machine Learning Foundations)$$</h5>
+              <h5>$$取圖自 Coursera-機器學習基石下 (Machine\ Learning\ Foundations)$$</h5>
             </div>
 
         </div>

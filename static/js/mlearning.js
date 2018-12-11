@@ -351,11 +351,21 @@ export function train(){
   point.draw(data_per, options_per);
 }
 //end perceptron variable
-
-function showVal(newVal) {
-    document.getElementById("eta").innerHTML = newVal;
+$('#slider').on('input',function () {
+    document.getElementById("eta").innerHTML = $(this).val();
     reset(1);
-}
+});
+$('#slider1').on('change',function () {
+    document.getElementById("eta1").innerHTML = $(this).val();
+    reset(0);
+});
+$('.step').on('click',function(){
+  console.log($(this).attr('data-link'));
+  step(Number($(this).attr('data-link')));
+});
+$('.reset').on('click',function(){
+  reset(Number($(this).attr('data-link')));
+});
 
 function showVal1(newVal) {
     document.getElementById("eta1").innerHTML = newVal;
